@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Override dark background utilities so enabled switches remain distinct. */
+.dark input.toggle[type="checkbox"]:checked {
+  background-color: var(--app-toggle-active, #10b981);
+  border-color: var(--app-toggle-active, #10b981);
+}
+
+.dark input.toggle[type="checkbox"]:checked::before {
+  background-color: #ffffff;
+}
+
+.dark input.toggle.toggle-success { --app-toggle-active: #10b981; }
+.dark input.toggle.toggle-warning { --app-toggle-active: #f59e0b; }
+.dark input.toggle.toggle-error { --app-toggle-active: #f43f5e; }
+
+/* 禁止过度滚动和橡皮筋效果 */
+html,
+body {
+  overscroll-behavior: none;
+  height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+html.panel-window,
+html.panel-window body,
+html.panel-window #root {
+  background: transparent !important;
+  background-color: transparent !important;
+  overflow: hidden !important;
+}
+
+html:not(.panel-window) {
+  background-color: #f5f5f7;
+}
+
+html.dark:not(.panel-window) {
+  background-color: #09090b;
+}
+
+/* 全局样式 */
+body:not(.panel-window) {
+  margin: 0;
+  font-family: 'Manrope Variable', 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f7;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Dark mode override for body strictly */
+.dark body:not(.panel-window) {
+  background-color: #09090b;
+}
+
+.tabular-nums,
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle top specular edge for elevated cards in pure carbon dark mode */
+.dark .surface-card {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 10px 30px -14px rgba(0, 0, 0, 0.78);
+}
+
+.surface-card {
+  box-shadow: 0 1px 2px rgba(9, 9, 11, 0.04), 0 8px 20px -12px rgba(9, 9, 11, 0.09);
+}
+
+.dark .surface-card-interactive:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 14px 34px -12px rgba(0, 0, 0, 0.85);
+}
+
+.surface-card-interactive:hover {
+  border-color: rgba(24, 24, 27, 0.16);
+  box-shadow: 0 4px 12px rgba(9, 9, 11, 0.06), 0 12px 26px -14px rgba(9, 9, 11, 0.14);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+/* 移除默认的 tap 高亮 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 只移除链接的默认下划线，不强制颜色 */
+a {
+  text-decoration: none;
+}
+
+/* 滚动条优化 - 彻底隐藏但保留功能 */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 99px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* View Transitions API 主题切换动画 */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* 暗色模式下 select 下拉菜单样式 */
+.dark select,
+.dark select option,
+.dark select optgroup {
+  background-color: #18181b;
+  color: #f4f4f5;
+}
+
+.dark select option:checked {
+  background-color: #27272a;
+  color: #ffffff;
+}

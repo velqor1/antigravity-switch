@@ -1,0 +1,27 @@
+# Maintainer documentation
+
+| Document | Purpose |
+| --- | --- |
+| [Project instructions](../../AGENTS.md) | Shared rules for human maintainers and coding agents |
+| [Maintenance guide](maintenance-guide.md) | Change impact table, batching updates and release boundaries |
+| [Release checklist](release-checklist.md) | Build, verify, publish and update Homebrew |
+| [Native GUI acceptance](native-gui-acceptance.md) | Hosted Windows/Linux window tests and their boundaries |
+| [Account data contract](account-dashboard-data-contract.md) | Read-only account, identity and quota projections |
+| [4.10.8 package verification](4.10.8-public-acceptance.md) | Current public packages, independent Argon quota, unknown observations and data-source limits |
+| [4.10.7 package verification](4.10.7-public-acceptance.md) | Previous public packages, audited cleanup and verified local replacement |
+| [4.10.6 package verification](4.10.6-public-acceptance.md) | Previous public packages, window presentation, proxy auto-apply, usage freshness and Gemini alias pricing |
+| [4.10.5 package verification](4.10.5-public-acceptance.md) | Previous public packages, export/import dialogs and plan classification acceptance |
+| [4.10.4 package verification](4.10.4-public-acceptance.md) | Previous account toolbar and proxy-test fixture acceptance |
+| [4.10.3 package verification](4.10.3-public-acceptance.md) | Previous public packages, App/CLI and IDE scopes, proxy routing and account transfer |
+| [4.10.2 package verification](4.10.2-public-acceptance.md) | Previous packages, automatic App switching/relaunch, Claude pricing and dual-family layout |
+| [4.10.1 package verification](4.10.1-public-acceptance.md) | Previous App-only translation baseline, shared CLI switch, hashes and update signatures |
+| [4.10.0 package verification](4.10.0-public-acceptance.md) | Previous experimental client-settings baseline |
+| [4.9.4 package verification](4.9.4-public-acceptance.md) | Previous desktop lifecycle baseline |
+| [4.9.3 package verification](4.9.3-public-acceptance.md) | Previous native quota-refresh baseline |
+| [4.9.2 package verification](4.9.2-public-acceptance.md) | Previous dashboard and menu baseline |
+| [4.9.1 package verification](4.9.1-public-acceptance.md) | Previous packaging and update baseline |
+| [4.9.0 package verification](4.9.0-public-acceptance.md) | Last published baseline before the 4.9.1 packaging update |
+
+The historical 4.9.0 product gallery is in `../screenshots/2026-10-06/`. The 4.9.0 native
+captures remain as platform validation evidence. Obsolete design drafts, local
+preview journals and superseded screenshot sets are omitted from the current tree.

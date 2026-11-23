@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>agy-switch</title>
+  <script>
+    (function () {
+      try {
+        const isMenubar = window.location.pathname.includes('menubar') || 
+                          window.location.hash.includes('menubar') || 
+                          window.location.search.includes('menubar') ||
+                          window.location.href.includes('menubar');
+        const savedTheme = localStorage.getItem('app-theme-preference');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const shouldBeDark = savedTheme === 'dark' || ((!savedTheme || savedTheme === 'system') && systemDark);
+
+        if (isMenubar) {
+          document.documentElement.classList.add('panel-window');
+          document.documentElement.style.setProperty('background-color', 'transparent', 'important');
+          document.documentElement.style.setProperty('background', 'transparent', 'important');
+        } else {
+          document.documentElement.style.backgroundColor = shouldBeDark ? '#09090b' : '#f5f5f7';
+        }
+
+        if (shouldBeDark) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {
+        console.error('Failed to apply theme during boot:', e);
+      }
+    })();
+  </script>
+  <style>
+    /* Critical CSS: Initial splash background for main window only */
+    html:not(.panel-window) {
+      background-color: #09090b;
+    }
+    html.panel-window,
+    html.panel-window body,
+    html.panel-window #root {
+      background-color: transparent !important;
+      background: transparent !important;
+      overflow: hidden !important;
+    }
+    body {
+      margin: 0;
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
