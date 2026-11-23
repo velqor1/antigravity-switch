@@ -9,7 +9,8 @@ import { aggregateMenuBar, menuBarAccount, quotaDisplay, type MenuBarSnapshot, t
 import { MenuBarSwitchDetails, useMenuBarSwitchStatus } from '../components/menubar/LowQuotaStatus';
 import '../components/menubar/MenuBarDashboard.css';
 import { DEFAULT_MENU_BAR_PREFERENCES, menuBarResetTimeDisplay, type MenuBarPreferences } from '../types/config';
-import logo from '../assets/logo.png';
+import logoDark from '../assets/logo.png';
+import logoLight from '../assets/logo-light.png';
 import { quotaTone } from '../utils/menuBarOverview';
 import { formatUsdWithRate, CurrencyMode } from '../utils/currency';
 
@@ -184,9 +185,11 @@ export default function MenuBarDashboard() {
   const pager = (index: number, total: number, update: (page: number) => void) => <nav className="mb-pagination" aria-label={pickLang(lang, '分页', 'Страницы', 'Pagination')}>
     <button aria-label={pickLang(lang, '上一页', 'Предыдущая страница', 'Previous page')} disabled={index === 0} onClick={() => update(index - 1)}><ChevronLeft size={13} /></button><span>{index + 1} / {total}</span><button aria-label={pickLang(lang, '下一页', 'Следующая страница', 'Next page')} disabled={index + 1 >= total} onClick={() => update(index + 1)}><ChevronRight size={13} /></button>
   </nav>;
+  const isLightTheme = config?.theme === 'light' || (config?.theme !== 'dark' && typeof document !== 'undefined' && !document.documentElement.classList.contains('dark'));
+  const brandLogo = isLightTheme ? logoLight : logoDark;
   return <div className={'menubar-app ' + (preferences.show_weekly && preferences.display_scope !== 'other' && accounts.some(view => view.argonReported) ? 'has-argon-pools ' : '') + (appearance?.native_material ? 'native-material' : 'opaque-material') + (appearance?.high_contrast ? ' high-contrast' : '')} data-language={lang} data-platform={appearance?.platform || 'unknown'} data-material={appearance?.material_kind || (appearance?.native_material ? 'vibrancy' : 'opaque')}>
     <header className="mb-header">
-      <div className="mb-brand">{preferences.show_icons && <img src={logo} alt="" width="24" height="24" />}<div><span className="mb-eyebrow">AntiGravity Switch</span>{detail && <h1>{pickLang(lang, '智能切换', 'Автосвитч', 'Auto-switch')}</h1>}</div></div>
+      <div className="mb-brand">{preferences.show_icons && <img src={brandLogo} alt="" width="24" height="24" style={{ borderRadius: 6 }} />}<div><span className="mb-eyebrow">AntiGravity Switch</span>{detail && <h1>{pickLang(lang, '智能切换', 'Автосвитч', 'Auto-switch')}</h1>}</div></div>
       <div className="mb-header-actions">{detail && <button aria-label={pickLang(lang, '返回总览', 'Назад', 'Back to overview')} onClick={() => setDetail(null)}><ArrowLeft size={16} /></button>}<button aria-label={pickLang(lang, '刷新全部额度', 'Обновить все', 'Refresh all quotas')} disabled={busy || loading} onClick={() => void refresh()}><RefreshCw size={16} className={refreshing ? 'animate-spin' : ''} /></button><button aria-label={pickLang(lang, '偏好设置', 'Настройки', 'Settings')} onClick={() => openPage('settings')}><Settings size={16} /></button></div>
     </header>
     {!detail && <UsageOverview usage={usage} lang={lang} currencyMode={config?.quota_valuation?.currency ?? 'usd'} usdToCnyRate={config?.quota_valuation?.usd_to_cny_rate ?? 7.25} />}

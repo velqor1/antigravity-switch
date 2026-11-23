@@ -64,11 +64,16 @@ export default function ThemeManager() {
                 document.body.style.backgroundColor = isDark ? '#09090b' : '#f5f5f7';
             }
 
-            // Set Tailwind dark mode class
+            // Set Tailwind dark mode class & theme-aware favicon
             if (isDark) {
                 root.classList.add('dark');
             } else {
                 root.classList.remove('dark');
+            }
+
+            const favicon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+            if (favicon) {
+                favicon.href = isDark ? '/icon.png' : '/icon-light.png';
             }
         };
 

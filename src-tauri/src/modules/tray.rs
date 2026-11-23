@@ -3,14 +3,42 @@ use tauri::{
     image::Image,
     menu::{Menu, MenuItem, PredefinedMenuItem},
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
-    Emitter, Listener,
+    Emitter, Listener, Manager,
 };
 
 fn labels(language: &str) -> (&'static str, &'static str) {
     if language.starts_with("zh") {
         ("快速仪表盘", "设置…")
+    } else if language.starts_with("ru") {
+        ("Быстрая панель", "Настройки…")
     } else {
         ("Quick Dashboard", "Settings…")
+    }
+}
+
+fn load_themed_icon(is_light: bool) -> Result<Image<'static>, String> {
+    let icon_bytes: &[u8] = if is_light {
+        include_bytes!("../../icons/icon-light.png")
+    } else {
+        include_bytes!("../../icons/icon.png")
+    };
+    let img = image::load_from_memory(icon_bytes)
+        .map_err(|e| e.to_string())?
+        .to_rgba8();
+    Ok(Image::new_owned(img.clone().into_raw(), img.width(), img.height()))
+}
+
+pub fn apply_theme_icons(app: &tauri::AppHandle, is_light: bool) {
+    if let Ok(window_icon) = load_themed_icon(is_light) {
+        if let Some(main_window) = app.get_webview_window("main") {
+            let _ = main_window.set_icon(window_icon);
+        }
+    }
+    #[cfg(not(target_os = "macos"))]
+    if let Ok(tray_icon) = load_themed_icon(is_light) {
+        if let Some(tray) = app.tray_by_id("main") {
+            let _ = tray.set_icon(Some(tray_icon));
+        }
     }
 }
 
@@ -98,14 +126,28 @@ fn build_menu(app: &tauri::AppHandle) -> tauri::Result<Menu<tauri::Wry>> {
 }
 
 pub fn create_tray(app: &tauri::AppHandle) -> tauri::Result<()> {
+    let initial_light = modules::load_app_config()
+        .map(|cfg| cfg.theme.eq_ignore_ascii_case("light"))
+        .unwrap_or(false);
     #[cfg(target_os = "macos")]
     let icon_bytes: &[u8] = include_bytes!("../../icons/tray-icon.png");
     #[cfg(not(target_os = "macos"))]
-    let icon_bytes: &[u8] = include_bytes!("../../icons/icon.png");
+    let icon_bytes: &[u8] = if initial_light {
+        include_bytes!("../../icons/icon-light.png")
+    } else {
+        include_bytes!("../../icons/icon.png")
+    };
     let img = image::load_from_memory(icon_bytes)
         .map_err(|e| tauri::Error::Io(std::io::Error::other(e.to_string())))?
         .to_rgba8();
     let icon = Image::new_owned(img.clone().into_raw(), img.width(), img.height());
+    if initial_light {
+        if let Ok(window_icon) = load_themed_icon(true) {
+            if let Some(main_window) = app.get_webview_window("main") {
+                let _ = main_window.set_icon(window_icon);
+            }
+        }
+    }
     TrayIconBuilder::with_id("main")
         .menu(&build_menu(app)?)
         // Linux does not deliver TrayIconEvent::Click, so retain its native menu.

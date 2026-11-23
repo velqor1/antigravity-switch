@@ -1,9 +1,15 @@
 <div align="center">
-  <img src="branding/app-icon.png" width="96" height="96" alt="AntiGravity Switch icon" />
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="branding/app-icon-light.png" />
+    <source media="(prefers-color-scheme: dark)" srcset="branding/app-icon.png" />
+    <img src="branding/app-icon.png" width="92" height="92" alt="AntiGravity Switch icon" />
+  </picture>
   <h1>AntiGravity Switch</h1>
-  <p>Десктопный и консольный менеджер аккаунтов Antigravity с мониторингом квот, статистикой расхода и быстрым переключением.</p>
+  <p>Десктопный и консольный менеджер аккаунтов Antigravity с мониторингом квот, локальной телеметрией и быстрым переключением.</p>
   <p>
     <a href="https://github.com/velqor1/antigravity-switch/releases/latest"><strong>Скачать Release v1.0</strong></a>
+    ·
+    <a href="#интерфейс">Интерфейс</a>
     ·
     <a href="#возможности">Возможности</a>
     ·
@@ -13,20 +19,37 @@
   </p>
 </div>
 
+## Интерфейс
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/screenshots/dashboard-dark.png" alt="AntiGravity Switch — Тёмная тема" />
+      <br />
+      <sub><strong>Тёмная тема</strong> · графитовый монохром и светлый знак</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/screenshots/dashboard-light.png" alt="AntiGravity Switch — Светлая тема" />
+      <br />
+      <sub><strong>Светлая тема</strong> · чистый светлый фон и тёмный знак</sub>
+    </td>
+  </tr>
+</table>
+
 ## Возможности
 
 - **Управление аккаунтами** — добавление через Google OAuth, refresh-токен или локальный импорт, заметки, перетаскивание порядка, отключение и экспорт/перенос профилей.
-- **Актуальные квоты и история циклов** — отображение остатка и времени сброса по окнам `5H` и `Weekly` для актуальных моделей (`Gemini 3.1 Pro`, `Gemini 3 Flash`, `Claude 4.6 Sonnet/Opus`, `GPT-OSS`), журнал циклов и оценка стоимости расхода.
+- **Актуальные квоты и аналитика** — остаток и время сброса по окнам `5H` и `Weekly` для актуальных моделей (`Gemini 3.1 Pro`, `Gemini 3 Flash`, `Claude 4.6 Sonnet/Opus`, `GPT-OSS`), локальная телеметрия токенов, журнал циклов и оценка расхода.
 - **Быстрое и автоматическое переключение** — смена активного аккаунта в один клик для Antigravity Desktop App, CLI (`agy`), IDE и расширения VS Code, плюс опциональное автопереключение при падении квоты.
-- **Обновлённый интерфейс** — тёмная графитовая тема без лишнего визуального шума, собственная безрамочная шапка окна, пружинные анимации, полная локализация (`RU` / `EN` / `ZH`) и быстрая мини-панель в системном трее.
-- **Консольный клиент** — утилита `agy-switch.exe` для управления аккаунтами и политиками прямо из терминала с общей локальной базой.
+- **Адаптивный интерфейс и иконка** — тёмная и светлая монохромные темы, собственная безрамочная шапка окна, пружинные анимации, динамическая иконка приложения и трея под активную тему, локализация (`RU` / `EN` / `ZH`) и мини-панель в трее.
+- **Консольный клиент** — утилита `agy-switch.exe` для работы из терминала с той же локальной базой аккаунтов.
 
 ## Установка (Windows)
 
-1. Откройте раздел **[Releases](https://github.com/velqor1/antigravity-switch/releases/latest)** и скачайте архив `agy-switch-v1.0-windows-x64.zip`.
+1. Откройте **[Releases](https://github.com/velqor1/antigravity-switch/releases/latest)** и скачайте `agy-switch-v1.0-windows-x64.zip`.
 2. Распакуйте в удобную папку и запустите `agy-switch-desktop.exe` (для терминала — `agy-switch.exe`).
 
-> Все аккаунты и настройки хранятся только локально в `%USERPROFILE%\.antigravity_tools\`.
+> Аккаунты и настройки хранятся только локально в `%USERPROFILE%\.antigravity_tools\`.
 
 ## Стек
 
@@ -51,9 +74,10 @@ npm run tauri build -- --no-bundle -- --locked
 
 ## Основа и лицензия
 
-Проект основан на [anglee0323/agy-switch](https://github.com/anglee0323/agy-switch) и доработан:
-- переработан дизайн в тёмной графитовой палитре с новой иконкой и анимациями;
+Основан на [anglee0323/agy-switch](https://github.com/anglee0323/agy-switch). Доработано:
+- переработан интерфейс в тёмном и светлом монохроме с плавными анимациями;
 - добавлена собственная безрамочная верхняя панель окна для Windows;
+- создана новая иконка **Twin Peaks** с автоматической сменой под тему в шапке, на панели задач и в трее;
 - добавлена полная русская локализация и обновлён набор отслеживаемых моделей по умолчанию.
 
 Распространяется под лицензией **[CC BY-NC-SA 4.0](LICENSE)**.

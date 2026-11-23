@@ -119,7 +119,7 @@ function Navbar() {
             >
                 {/* Left: Brand logo */}
                 <div className="flex items-center shrink-0">
-                    <NavLogo />
+                    <NavLogo theme={effectiveTheme} />
                 </div>
 
                 {/* Center: Animated navigation capsule */}

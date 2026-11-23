@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bgLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#f4f4f6"/>
+      <stop offset="100%" stop-color="#e7e7ec"/>
+    </linearGradient>
+    <linearGradient id="rimLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#09090b" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="0.22"/>
+    </linearGradient>
+    <linearGradient id="blackMark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="graphiteMark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#71717a"/>
+      <stop offset="100%" stop-color="#52525b"/>
+    </linearGradient>
+    <filter id="lightShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.14"/>
+    </filter>
+    <clipPath id="squircleClip">
+      <rect x="44" y="44" width="936" height="936" rx="220" ry="220"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#squircleClip)">
+    <rect x="44" y="44" width="936" height="936" rx="220" ry="220" fill="url(#bgLight)"/>
+  </g>
+  <rect x="48" y="48" width="928" height="928" rx="216" ry="216" fill="none" stroke="url(#rimLight)" stroke-width="10"/>
+  <g filter="url(#lightShadow)" transform="translate(-8, 6)">
+    <path d="M 192 688
+             C 246 624, 290 330, 388 330
+             C 454 330, 488 456, 514 554
+             L 452 574
+             C 430 536, 412 522, 386 522
+             C 322 522, 294 646, 232 698
+             C 202 722, 172 710, 192 688 Z"
+          fill="url(#graphiteMark)"/>
+    <path d="M 424 686
+             C 490 618, 536 296, 646 296
+             C 748 296, 782 544, 842 666
+             C 856 694, 832 722, 804 708
+             C 746 678, 722 550, 646 550
+             C 568 550, 538 666, 466 708
+             C 434 726, 404 708, 424 686 Z"
+          fill="#f4f4f6" stroke="#f4f4f6" stroke-width="26" stroke-linejoin="round"/>
+    <path d="M 424 686
+             C 490 618, 536 296, 646 296
+             C 748 296, 782 544, 842 666
+             C 856 694, 832 722, 804 708
+             C 746 678, 722 550, 646 550
+             C 568 550, 538 666, 466 708
+             C 434 726, 404 708, 424 686 Z"
+          fill="url(#blackMark)"/>
+  </g>
+</svg>

@@ -621,9 +621,13 @@ pub async fn show_main_window(app: tauri::AppHandle) -> Result<(), String> {
     modules::desktop::show_main(&app)
 }
 
-/// 设置窗口主题（用于同步 Windows 标题栏按钮颜色）
+/// 设置窗口主题（用于同步 Windows 标题栏按钮颜色与主题图标）
 #[tauri::command]
-pub async fn set_window_theme(window: tauri::Window, theme: String) -> Result<(), String> {
+pub async fn set_window_theme(
+    app: tauri::AppHandle,
+    window: tauri::Window,
+    theme: String,
+) -> Result<(), String> {
     use tauri::Theme;
 
     let tauri_theme = match theme.as_str() {
@@ -632,6 +636,7 @@ pub async fn set_window_theme(window: tauri::Window, theme: String) -> Result<()
         _ => None, // system default
     };
 
+    crate::modules::tray::apply_theme_icons(&app, theme == "light");
     window.set_theme(tauri_theme).map_err(|e| e.to_string())
 }
 
